@@ -2918,6 +2918,20 @@ takes precedence)."
                  17 21 'face '(markdown-italic-face markdown-bold-face)))
     (markdown-test-range-has-face 15 23 'markdown-inline-code-face)))
 
+(ert-deftest test-markdown-font-lock/bold-then-italic ()
+  "Check that bold markers are not paired with asterisks that start italics."
+  (markdown-test-string "**foo** bar *baz*"
+    (should-not (markdown-range-property-any
+                 9 11 'face '(markdown-italic-face)))
+    (markdown-test-range-has-face 14 16 'markdown-italic-face)))
+
+(ert-deftest test-markdown-font-lock/bold-then-italic-with-marker ()
+  "Check that bold markers are not paired with asterisks within italics."
+    (markdown-test-string "**foo** bar _baz*quux_"
+    (should-not (markdown-range-property-any
+                 9 11 'face '(markdown-italic-face)))
+    (markdown-test-range-has-face 14 21 'markdown-italic-face)))
+
 (ert-deftest test-markdown-font-lock/two-bold-words-after-list ()
   "Test two bold words after a list marker."
   (markdown-test-string "- **foo** **bar**"

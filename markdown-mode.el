@@ -3571,7 +3571,8 @@ When FACELESS is non-nil, do not return matches where faces have been applied."
                  begin end 'face '(markdown-inline-code-face
                                    markdown-bold-face
                                    markdown-list-face
-                                   markdown-math-face)))
+                                   markdown-math-face
+                                   markdown-markup-face)))
             (progn (goto-char (min (1+ begin) last))
                    (when (< (point) last)
                      (markdown-match-italic last)))
